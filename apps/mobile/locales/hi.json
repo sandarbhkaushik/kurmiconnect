@@ -1,0 +1,72 @@
+{
+  "common": {
+    "continue": "जारी रखें",
+    "next": "आगे",
+    "back": "पीछे",
+    "cancel": "रद्द करें",
+    "save": "सहेजें",
+    "done": "हो गया",
+    "skip": "छोड़ें",
+    "yes": "हाँ",
+    "no": "नहीं",
+    "or": "या",
+    "coming_soon": "Coming soon"
+  },
+  "splash": {
+    "brand": "KurmiConnect",
+    "est": "EST. 2026",
+    "tagline_line1": "विश्वसनीय रिश्ते,",
+    "tagline_line2": "सम्मानित परिवार",
+    "tagline_en": "Trusted matches, respected families"
+  },
+  "language": {
+    "title": "अपनी भाषा चुनें",
+    "subtitle": "Choose your language",
+    "hindi": "हिन्दी",
+    "english": "English",
+    "marathi": "मराठी",
+    "marathi_phase": "Marathi · Phase 2",
+    "cta": "जारी रखें · Continue"
+  },
+  "phone": {
+    "title": "अपना मोबाइल नंबर डालें",
+    "subtitle": "Enter your mobile number",
+    "otp_hint": "OTP WhatsApp या SMS पर आएगा",
+    "otp_hint_en": "OTP will arrive on WhatsApp or SMS",
+    "terms_agree": "मैं Terms और Privacy Policy से सहमत हूँ",
+    "terms_agree_en": "I agree to Terms and Privacy",
+    "send_otp": "OTP भेजें · Send OTP",
+    "already_account": "पहले से account है?",
+    "login": "Login"
+  },
+  "otp": {
+    "title": "OTP डालें",
+    "subtitle": "Enter OTP",
+    "sent_to": "पर भेजा गया",
+    "resend_timer": "{{time}} में दोबारा भेजें · Resend in {{time}}",
+    "resend_sms": "OTP दोबारा भेजें · Resend OTP (SMS)",
+    "resend_whatsapp": "WhatsApp पर भेजें",
+    "resend_voice": "Voice call OTP",
+    "verify": "Verify और आगे बढ़ें"
+  },
+  "onboard": {
+    "step_label": "{{step}}/{{total}}",
+    "for_whom": {
+      "title": "यह profile किसके लिए है?",
+      "subtitle": "Whose profile is this?",
+      "help": "हम accordingly आपको दिखाएँगे · We'll personalize accordingly",
+      "myself": "अपने लिए",
+      "myself_en": "Myself",
+      "son": "बेटे के लिए",
+      "son_en": "My son",
+      "daughter": "बेटी के लिए",
+      "daughter_en": "My daughter",
+      "brother": "भाई के लिए",
+      "brother_en": "My brother",
+      "sister": "बहन के लिए",
+      "sister_en": "My sister",
+      "relative": "रिश्तेदार",
+      "relative_en": "Relative"
+    }
+  }
+}

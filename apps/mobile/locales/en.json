@@ -1,0 +1,72 @@
+{
+  "common": {
+    "continue": "Continue",
+    "next": "Next",
+    "back": "Back",
+    "cancel": "Cancel",
+    "save": "Save",
+    "done": "Done",
+    "skip": "Skip",
+    "yes": "Yes",
+    "no": "No",
+    "or": "or",
+    "coming_soon": "Coming soon"
+  },
+  "splash": {
+    "brand": "KurmiConnect",
+    "est": "EST. 2026",
+    "tagline_line1": "Trusted matches,",
+    "tagline_line2": "respected families",
+    "tagline_en": "Trusted matches, respected families"
+  },
+  "language": {
+    "title": "Choose your language",
+    "subtitle": "अपनी भाषा चुनें",
+    "hindi": "Hindi",
+    "english": "English",
+    "marathi": "Marathi",
+    "marathi_phase": "Marathi · Phase 2",
+    "cta": "Continue"
+  },
+  "phone": {
+    "title": "Enter your mobile number",
+    "subtitle": "अपना मोबाइल नंबर डालें",
+    "otp_hint": "OTP will arrive on WhatsApp or SMS",
+    "otp_hint_en": "",
+    "terms_agree": "I agree to Terms and Privacy Policy",
+    "terms_agree_en": "",
+    "send_otp": "Send OTP",
+    "already_account": "Already have an account?",
+    "login": "Login"
+  },
+  "otp": {
+    "title": "Enter OTP",
+    "subtitle": "OTP डालें",
+    "sent_to": "sent to",
+    "resend_timer": "Resend in {{time}}",
+    "resend_sms": "Resend OTP (SMS)",
+    "resend_whatsapp": "Send via WhatsApp",
+    "resend_voice": "Voice call OTP",
+    "verify": "Verify & Continue"
+  },
+  "onboard": {
+    "step_label": "{{step}}/{{total}}",
+    "for_whom": {
+      "title": "Whose profile is this?",
+      "subtitle": "यह profile किसके लिए है?",
+      "help": "We'll personalize your matches accordingly",
+      "myself": "Myself",
+      "myself_en": "",
+      "son": "My son",
+      "son_en": "",
+      "daughter": "My daughter",
+      "daughter_en": "",
+      "brother": "My brother",
+      "brother_en": "",
+      "sister": "My sister",
+      "sister_en": "",
+      "relative": "Relative",
+      "relative_en": ""
+    }
+  }
+}
