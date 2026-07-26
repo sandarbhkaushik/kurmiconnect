@@ -1,15 +1,20 @@
+import { useState } from 'react';
 import { View, Text, Pressable, ScrollView, TextInput } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { ChevronLeft, Check } from 'lucide-react-native';
 import { useRouter } from 'expo-router';
 import { defaultTheme as t } from '@/lib/theme';
 import BiLabel from '@/components/ui/BiLabel';
-import KCButton from '@/components/ui/KCButton';
+import BottomCTA from '@/components/ui/BottomCTA';
 
 export default function Phone() {
   const router = useRouter();
+  const [phone, setPhone] = useState('');
+  const [agreed, setAgreed] = useState(false);
+  const isValid = /^[6-9]\d{9}$/.test(phone.replace(/\s/g, ''));
+  const canContinue = isValid && agreed;
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: t.bg }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: t.bg }} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 24 }}>
         <Pressable onPress={() => router.back()}>
           <ChevronLeft color={t.textMuted} size={22} strokeWidth={1.6} />
@@ -41,22 +46,26 @@ export default function Phone() {
             borderRadius: 10, justifyContent: 'center',
           }}>
             <TextInput
-              defaultValue="98765 43210"
+              value={phone}
+              onChangeText={setPhone}
+              placeholder="98765 43210"
+              placeholderTextColor={t.textFaint}
               keyboardType="phone-pad"
+              maxLength={11}
               style={{ fontSize: 20, color: t.text, letterSpacing: 1 }}
             />
           </View>
         </View>
 
-        <View style={{ flexDirection: 'row', gap: 10, alignItems: 'flex-start', marginTop: 20 }}>
+        <Pressable onPress={() => setAgreed(v => !v)} style={{ flexDirection: 'row', gap: 10, alignItems: 'flex-start', marginTop: 20 }}>
           <View style={{
             width: 18, height: 18, borderRadius: 4,
-            borderWidth: 1.5, borderColor: t.primary,
-            backgroundColor: t.primary,
+            borderWidth: 1.5, borderColor: agreed ? t.primary : t.border,
+            backgroundColor: agreed ? t.primary : 'transparent',
             alignItems: 'center', justifyContent: 'center',
             flexShrink: 0, marginTop: 1,
           }}>
-            <Check size={12} color="#FFF" strokeWidth={1.6} />
+            {agreed && <Check size={12} color="#FFF" strokeWidth={1.6} />}
           </View>
           <View style={{ flex: 1 }}>
             <Text style={{ fontSize: 13, color: t.textMuted, lineHeight: 20 }}>
@@ -70,20 +79,20 @@ export default function Phone() {
               I agree to Terms and Privacy
             </Text>
           </View>
-        </View>
+        </Pressable>
       </ScrollView>
 
-      <View style={{ padding: 24, borderTopWidth: 1, borderTopColor: t.borderSoft, backgroundColor: t.surface }}>
-        <KCButton variant="primary" size="lg" full onPress={() => router.push('/(auth)/otp')}>
-          OTP भेजें · Send OTP
-        </KCButton>
-        <View style={{ marginTop: 16, alignItems: 'center' }}>
+      <BottomCTA
+        label="OTP भेजें · Send OTP"
+        disabled={!canContinue}
+        onPress={() => router.push('/(auth)/otp')}
+        note={
           <Text style={{ fontSize: 13, color: t.textMuted }}>
             {'पहले से account है? '}
             <Text style={{ color: t.primary }}>Login</Text>
           </Text>
-        </View>
-      </View>
+        }
+      />
     </SafeAreaView>
   );
 }

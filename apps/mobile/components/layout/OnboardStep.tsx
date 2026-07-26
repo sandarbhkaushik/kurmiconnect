@@ -6,7 +6,7 @@ import { useRouter } from 'expo-router';
 import { defaultTheme as t } from '@/lib/theme';
 import ProgressBar from '@/components/ui/ProgressBar';
 import BiLabel from '@/components/ui/BiLabel';
-import KCButton from '@/components/ui/KCButton';
+import BottomCTA from '@/components/ui/BottomCTA';
 
 interface Props {
   step: number;
@@ -34,7 +34,7 @@ export default function OnboardStep({
   const router = useRouter();
 
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: t.bg }} edges={['top', 'bottom']}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: t.bg }} edges={['top', 'left', 'right']}>
       {/* Header */}
       <View style={{ paddingHorizontal: 24, paddingTop: 16, paddingBottom: 0, flexShrink: 0 }}>
         <View style={{ flexDirection: 'row', alignItems: 'center', gap: 12, marginBottom: 16 }}>
@@ -63,18 +63,7 @@ export default function OnboardStep({
         {children}
       </ScrollView>
 
-      {/* CTA footer */}
-      <View style={{
-        paddingHorizontal: 24,
-        paddingVertical: 16,
-        borderTopWidth: 1,
-        borderTopColor: t.borderSoft,
-        backgroundColor: t.surface,
-      }}>
-        <KCButton variant="primary" size="lg" full onPress={onNext}>
-          {`${ctaHi} · ${ctaEn}`}
-        </KCButton>
-      </View>
+      <BottomCTA label={`${ctaHi} · ${ctaEn}`} onPress={onNext ?? (() => {})} />
     </SafeAreaView>
   );
 }

@@ -1,8 +1,18 @@
-import { View, Text } from 'react-native';
+import { useEffect } from 'react';
+import { View, Text, Pressable } from 'react-native';
+import { useRouter } from 'expo-router';
 import { defaultTheme as t } from '@/lib/theme';
 
 export default function Splash() {
+  const router = useRouter();
+
+  useEffect(() => {
+    const timer = setTimeout(() => router.replace('/(auth)/language'), 2000);
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
+    <Pressable style={{ flex: 1 }} onPress={() => router.replace('/(auth)/language')}>
     <View style={{ flex: 1, backgroundColor: t.bg, alignItems: 'center', justifyContent: 'center' }}>
       {/* Logo mark */}
       <View style={{
@@ -67,5 +77,6 @@ export default function Splash() {
         ))}
       </View>
     </View>
+    </Pressable>
   );
 }

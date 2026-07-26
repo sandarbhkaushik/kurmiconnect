@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { View, Text, Pressable, ScrollView } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { Check } from 'lucide-react-native';
@@ -5,28 +6,29 @@ import { useRouter } from 'expo-router';
 import { defaultTheme as t } from '@/lib/theme';
 import BiLabel from '@/components/ui/BiLabel';
 import Badge from '@/components/ui/Badge';
-import KCButton from '@/components/ui/KCButton';
+import BottomCTA from '@/components/ui/BottomCTA';
 
 const langs = [
-  { hi: 'हिन्दी', en: 'Hindi', selected: true },
-  { hi: 'English', en: '', selected: false },
-  { hi: 'मराठी', en: 'Marathi · Phase 2', selected: false, disabled: true },
+  { hi: 'हिन्दी', en: 'Hindi' },
+  { hi: 'English', en: '' },
+  { hi: 'मराठी', en: 'Marathi · Phase 2', disabled: true },
 ];
 
 export default function Language() {
   const router = useRouter();
+  const [selected, setSelected] = useState(0);
   return (
-    <SafeAreaView style={{ flex: 1, backgroundColor: t.bg }}>
+    <SafeAreaView style={{ flex: 1, backgroundColor: t.bg }} edges={['top', 'left', 'right']}>
       <ScrollView contentContainerStyle={{ flexGrow: 1, padding: 24 }}>
         <View style={{ marginBottom: 32 }}>
           <BiLabel hi="अपनी भाषा चुनें" en="Choose your language" size="xxl" />
         </View>
         <View style={{ gap: 12 }}>
           {langs.map((l, i) => (
-            <Pressable key={i} style={{
+            <Pressable key={i} onPress={() => !l.disabled && setSelected(i)} style={{
               height: 80, paddingHorizontal: 20,
               backgroundColor: l.disabled ? t.borderSoft : t.surface,
-              borderWidth: 1.5, borderColor: l.selected ? t.primary : t.border,
+              borderWidth: 1.5, borderColor: selected === i ? t.primary : t.border,
               borderRadius: 12,
               flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between',
               opacity: l.disabled ? 0.5 : 1,
@@ -35,7 +37,7 @@ export default function Language() {
                 <Text style={{ fontSize: 22, fontWeight: '500', color: t.text }}>{l.hi}</Text>
                 {l.en ? <Text style={{ fontSize: 12, color: t.textFaint, marginTop: 2 }}>{l.en}</Text> : null}
               </View>
-              {l.selected && (
+              {selected === i && !l.disabled && (
                 <View style={{ width: 28, height: 28, borderRadius: 14, backgroundColor: t.primary, alignItems: 'center', justifyContent: 'center' }}>
                   <Check size={16} color="#FFF" strokeWidth={1.6} />
                 </View>
@@ -45,11 +47,7 @@ export default function Language() {
           ))}
         </View>
       </ScrollView>
-      <View style={{ padding: 24, borderTopWidth: 1, borderTopColor: t.borderSoft, backgroundColor: t.surface }}>
-        <KCButton variant="primary" size="lg" full onPress={() => router.push('/(auth)/phone')}>
-          जारी रखें · Continue
-        </KCButton>
-      </View>
+      <BottomCTA label="जारी रखें · Continue" onPress={() => router.replace('/(auth)/phone')} />
     </SafeAreaView>
   );
 }
