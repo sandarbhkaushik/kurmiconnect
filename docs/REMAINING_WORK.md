@@ -46,13 +46,13 @@
 ## Session tracker
 
 Frontend foundation (mobile):
-- [ ] Session 1 — Reusable BottomCTA + wire auth flow buttons
-- [ ] Session 2 — Port design tokens from tokens.jsx to tailwind.config.js
-- [ ] Session 3 — Set up i18n (hi.json, en.json, i18n.ts)
-- [ ] Session 4 — Build lib/api.ts, lib/storage.ts (Firebase auth deferred)
+- [x] Session 1 — Reusable BottomCTA + wire auth flow buttons
+- [x] Session 2 — Port design tokens from tokens.jsx to tailwind.config.js
+- [x] Session 3 — Set up i18n (hi.json, en.json, i18n.ts)
+- [x] Session 4 — Build lib/api.ts, lib/storage.ts (Firebase auth deferred)
 
 Backend foundation (API):
-- [ ] Session 5 — FastAPI scaffold + docker-compose + Tenant module
+- [x] Session 5 — FastAPI scaffold + docker-compose + Tenant module
 - [ ] Session 6 — Auth module (Firebase verify + JWT)
 - [ ] Session 7 — Profile module + endpoints
 - [ ] Session 8 — Match module + daily suggestion algorithm
