@@ -6,6 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 
 from app.core.logging import setup_logging
 from app.core.tenant import TenantMiddleware
+from app.modules.auth.router import router as auth_router
 from app.modules.health.router import router as health_router
 from app.modules.tenant.router import router as tenant_router
 
@@ -38,3 +39,4 @@ app.add_middleware(TenantMiddleware)
 
 app.include_router(health_router, prefix="/v1")
 app.include_router(tenant_router, prefix="/v1")
+app.include_router(auth_router, prefix="/v1")
