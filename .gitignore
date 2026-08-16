@@ -46,3 +46,7 @@ apps/api/*.egg-info/
 
 # Secrets
 apps/api/firebase-service-account.json
+
+# Claude Code local harness state (per-machine settings + nested worktree
+# checkouts — never safe to commit into this repo's own tree)
+.claude/
