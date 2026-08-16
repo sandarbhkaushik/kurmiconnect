@@ -55,7 +55,7 @@ Backend foundation (API):
 - [x] Session 5 — FastAPI scaffold + docker-compose + Tenant module
 - [x] Session 6 — Auth module (password-based; Firebase verify + JWT deferred)
 - [x] Session 7 — Profile module + endpoints
-- [ ] Session 8 — Match module + daily suggestion algorithm
+- [x] Session 8 — Match module + daily suggestion algorithm
 
 Mobile → Backend wiring:
 - [ ] Session 9 — Wire onboarding screens 1-7 to Profile API
