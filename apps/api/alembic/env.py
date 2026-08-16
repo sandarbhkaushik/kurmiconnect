@@ -11,6 +11,7 @@ from app.core.config import settings
 from app.core.db import Base
 # Import all models so Alembic detects them for autogenerate
 from app.modules.auth.models import User, UserSession  # noqa: F401
+from app.modules.match.models import Match  # noqa: F401
 from app.modules.profile.models import (  # noqa: F401
     Gotra,
     Profile,

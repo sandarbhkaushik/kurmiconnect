@@ -3,12 +3,29 @@ from datetime import datetime
 from sqlalchemy import select
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from app.modules.auth.models import User, UserSession
+from app.modules.auth.models import User, UserSession, UserStatus
 
 
 async def get_by_phone(db: AsyncSession, phone: str) -> User | None:
     result = await db.execute(select(User).where(User.phone == phone))
     return result.scalar_one_or_none()
+
+
+async def list_active_user_ids(db: AsyncSession) -> list[tuple[str, str]]:
+    """(tenant_id, user_id) for every active user, across ALL tenants.
+
+    Deliberately cross-tenant — this is the root query for the daily match
+    generation cron job (app/workers/tasks/generate_daily_matches.py), which
+    must process every tenant, not just one. It is only safe because it's
+    never reachable from an HTTP request handler (no tenant ContextVar is
+    set when the worker calls it, so the auto tenant-filter is a no-op here
+    by design — see app/core/tenant.py). Callers must explicitly set
+    current_tenant_id before doing any further per-user DB work with the
+    ids this returns."""
+    result = await db.execute(
+        select(User.tenant_id, User.id).where(User.status == UserStatus.active)
+    )
+    return [(row.tenant_id, row.id) for row in result.all()]
 
 
 async def get_by_id(db: AsyncSession, user_id: str) -> User | None:
