@@ -70,7 +70,12 @@ async def get_preferences(db: AsyncSession, profile_id: str) -> ProfilePreferenc
 async def create_preferences(
     db: AsyncSession, tenant_id: str, profile_id: str, data: ProfilePreferencesUpdate
 ) -> ProfilePreferences:
-    prefs = ProfilePreferences(tenant_id=tenant_id, profile_id=profile_id, **data.model_dump())
+    # exclude_unset: fields the client omitted are left unset on the ORM
+    # object, so the column's own SQLAlchemy default (list/False/
+    # doesnt_matter) applies at flush — not Pydantic's field default.
+    prefs = ProfilePreferences(
+        tenant_id=tenant_id, profile_id=profile_id, **data.model_dump(exclude_unset=True)
+    )
     db.add(prefs)
     await db.flush()
     await db.refresh(prefs)
@@ -80,7 +85,12 @@ async def create_preferences(
 async def update_preferences(
     db: AsyncSession, prefs: ProfilePreferences, data: ProfilePreferencesUpdate
 ) -> ProfilePreferences:
-    for field, value in data.model_dump().items():
+    # exclude_unset: a field the client didn't include in this request is
+    # left untouched on the existing row, rather than being reset to its
+    # schema default. This is what makes PATCH safe to call from multiple
+    # screens that each own a different subset of preference fields (see
+    # onboard/prefs-basic.tsx, prefs-community.tsx, prefs-career.tsx).
+    for field, value in data.model_dump(exclude_unset=True).items():
         setattr(prefs, field, value)
     await db.flush()
     await db.refresh(prefs)

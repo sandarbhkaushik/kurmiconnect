@@ -120,6 +120,37 @@ async def test_update_preferences_upserts(client: AsyncClient) -> None:
     assert resp.json()["partner_age_min"] == 24
 
 
+async def test_update_preferences_is_a_partial_merge_not_a_replace(client: AsyncClient) -> None:
+    """Regression test: PATCH /profiles/me/preferences must only touch
+    fields present in the request body. This is what lets onboarding split
+    preferences across three screens (prefs-basic/community/career), each
+    PATCHing only the fields it owns, without wiping out what the others
+    already saved."""
+    headers = await _auth_headers(client)
+    await client.post("/v1/profiles", headers=headers)
+
+    resp = await client.patch(
+        "/v1/profiles/me/preferences",
+        json={"partner_age_min": 24, "partner_age_max": 30, "partner_sub_castes": ["Patel"]},
+        headers=headers,
+    )
+    assert resp.status_code == 200
+
+    # A second PATCH that only touches unrelated fields must not reset
+    # partner_age_min/max/partner_sub_castes back to their defaults.
+    resp = await client.patch(
+        "/v1/profiles/me/preferences",
+        json={"partner_min_education": "Graduate"},
+        headers=headers,
+    )
+    assert resp.status_code == 200
+    body = resp.json()
+    assert body["partner_min_education"] == "Graduate"
+    assert body["partner_age_min"] == 24
+    assert body["partner_age_max"] == 30
+    assert body["partner_sub_castes"] == ["Patel"]
+
+
 async def test_add_and_delete_photo(client: AsyncClient) -> None:
     headers = await _auth_headers(client)
     await client.post("/v1/profiles", headers=headers)
