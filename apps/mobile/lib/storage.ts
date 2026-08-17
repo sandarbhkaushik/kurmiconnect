@@ -9,6 +9,10 @@ export const STORAGE_KEYS = {
   ONBOARDING_STATE: 'onboarding_state',
   USER_ID: 'user_id',
   TENANT_ID: 'tenant_id',
+  // Interim bridge password for the backend's password-auth (Session 6),
+  // used only until Session 22 wires real Firebase phone auth. Never
+  // shown to the user — see lib/auth-storage.ts getOrCreatePassword().
+  AUTH_PASSWORD: 'auth_password',
 } as const;
 
 export function getString(key: string): string | undefined {

@@ -17,6 +17,7 @@ interface Props {
   ctaHi?: string;
   ctaEn?: string;
   onNext?: () => void;
+  ctaDisabled?: boolean;
   children: ReactNode;
 }
 
@@ -29,6 +30,7 @@ export default function OnboardStep({
   ctaHi = 'आगे',
   ctaEn = 'Next',
   onNext,
+  ctaDisabled = false,
   children,
 }: Props) {
   const router = useRouter();
@@ -63,7 +65,11 @@ export default function OnboardStep({
         {children}
       </ScrollView>
 
-      <BottomCTA label={`${ctaHi} · ${ctaEn}`} onPress={onNext ?? (() => {})} />
+      <BottomCTA
+        label={`${ctaHi} · ${ctaEn}`}
+        onPress={onNext ?? (() => {})}
+        disabled={ctaDisabled}
+      />
     </SafeAreaView>
   );
 }

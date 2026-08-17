@@ -6,6 +6,7 @@ import { useRouter } from 'expo-router';
 import { defaultTheme as t } from '@/lib/theme';
 import BiLabel from '@/components/ui/BiLabel';
 import BottomCTA from '@/components/ui/BottomCTA';
+import { setString, STORAGE_KEYS } from '@/lib/storage';
 
 export default function Phone() {
   const router = useRouter();
@@ -85,7 +86,10 @@ export default function Phone() {
       <BottomCTA
         label="OTP भेजें · Send OTP"
         disabled={!canContinue}
-        onPress={() => router.push('/(auth)/otp')}
+        onPress={() => {
+          setString(STORAGE_KEYS.PHONE, `+91${phone.replace(/\s/g, '')}`);
+          router.push('/(auth)/otp');
+        }}
         note={
           <Text style={{ fontSize: 13, color: t.textMuted }}>
             {'पहले से account है? '}
