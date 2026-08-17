@@ -60,6 +60,8 @@ Backend foundation (API):
 Mobile → Backend wiring:
 - [x] Session 9 — Wire onboarding screens 1-7 to Profile API
 - [ ] Session 10 — Wire onboarding screens 8-14 + photo upload
+      (screens 8-14 minus photos.tsx are done; photos.tsx + R2 upload endpoint
+      still pending — needs Cloudflare R2 bucket + credentials in apps/api/.env first)
 - [ ] Session 11 — Wire Home + Search + Profile detail
 
 Communication features:
