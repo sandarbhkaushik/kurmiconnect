@@ -1,12 +1,19 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import api from '@/lib/api';
 import type {
+  AboutForm,
   BasicsForm,
   CommunityForm,
   EducationForm,
+  FamilyForm,
+  HoroscopeForm,
+  LifestyleForm,
   LocationForm,
   NativeForm,
   PhysicalForm,
+  PreferencesForm,
+  PreferencesResponse,
+  ProfessionForm,
   ProfileResponse,
 } from '@/lib/schemas/profile';
 
@@ -40,6 +47,39 @@ export const useUpdateCommunity = () => useUpdateSection<CommunityForm>('communi
 export const useUpdateLocation = () => useUpdateSection<LocationForm>('location');
 export const useUpdateNative = () => useUpdateSection<NativeForm>('native');
 export const useUpdateEducation = () => useUpdateSection<EducationForm>('education');
+export const useUpdateProfession = () => useUpdateSection<ProfessionForm>('profession');
+export const useUpdateLifestyle = () => useUpdateSection<LifestyleForm>('lifestyle');
+export const useUpdateFamily = () => useUpdateSection<FamilyForm>('family');
+export const useUpdateHoroscope = () => useUpdateSection<HoroscopeForm>('horoscope');
+export const useUpdateAbout = () => useUpdateSection<AboutForm>('about');
+
+/** Preferences is a separate endpoint with its own response shape
+ * (ProfilePreferencesResponse, not the full profile) — merges into the
+ * cached profile's `preferences` field rather than replacing it wholesale.
+ * Callers pass only the subset of PreferencesForm they own (prefs-basic/
+ * community/career), matching the backend's partial-merge PATCH. */
+export function useUpdatePreferences() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async (data: Partial<PreferencesForm>) =>
+      (await api.patch<PreferencesResponse>('/profiles/me/preferences', data)).data,
+    onSuccess: updated => {
+      queryClient.setQueryData<ProfileResponse | undefined>(PROFILE_QUERY_KEY, old =>
+        old ? { ...old, preferences: updated } : old
+      );
+    },
+  });
+}
+
+export function useCompleteProfile() {
+  const queryClient = useQueryClient();
+  return useMutation({
+    mutationFn: async () => (await api.post<ProfileResponse>('/profiles/me/complete')).data,
+    onSuccess: updated => {
+      queryClient.setQueryData(PROFILE_QUERY_KEY, updated);
+    },
+  });
+}
 
 export function useSubCastes() {
   return useQuery({
