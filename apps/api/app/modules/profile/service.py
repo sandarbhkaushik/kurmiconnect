@@ -102,6 +102,13 @@ async def update_about(db: AsyncSession, profile: Profile, data: ProfileAboutUpd
     return await _update_section(db, profile, data)
 
 
+async def complete_profile(db: AsyncSession, profile: Profile) -> Profile:
+    """Marks onboarding done. No minimum-fields validation for now (confirmed
+    with Sandarbh) — a profile can be "complete" with gaps; real-world usage
+    will show what "complete enough" should mean before building that out."""
+    return await repository.update(db, profile, is_complete=True)
+
+
 async def upsert_preferences(
     db: AsyncSession, profile: Profile, data: ProfilePreferencesUpdate
 ) -> ProfilePreferencesResponse:

@@ -76,6 +76,26 @@ async def test_get_my_profile_after_create(client: AsyncClient) -> None:
     assert resp.json()["id"] == created.json()["id"]
 
 
+async def test_complete_profile_sets_is_complete(client: AsyncClient) -> None:
+    headers = await _auth_headers(client)
+    created = await client.post("/v1/profiles", headers=headers)
+    assert created.json()["is_complete"] is False
+
+    resp = await client.post("/v1/profiles/me/complete", headers=headers)
+    assert resp.status_code == 200
+    assert resp.json()["is_complete"] is True
+
+    # Persisted, not just in the response.
+    resp = await client.get("/v1/profiles/me", headers=headers)
+    assert resp.json()["is_complete"] is True
+
+
+async def test_complete_profile_without_creation_returns_404(client: AsyncClient) -> None:
+    headers = await _auth_headers(client)
+    resp = await client.post("/v1/profiles/me/complete", headers=headers)
+    assert resp.status_code == 404
+
+
 async def test_update_basics_section(client: AsyncClient) -> None:
     headers = await _auth_headers(client)
     await client.post("/v1/profiles", headers=headers)

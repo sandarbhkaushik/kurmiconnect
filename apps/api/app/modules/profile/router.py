@@ -137,6 +137,13 @@ async def update_about(
     return await service.build_full_response(db, profile)
 
 
+@router.post("/me/complete", response_model=ProfileFullResponse)
+async def complete_profile(db: DbDep, user_id: CurrentUserDep) -> ProfileFullResponse:
+    profile = await service.get_own_profile(db, user_id)
+    profile = await service.complete_profile(db, profile)
+    return await service.build_full_response(db, profile)
+
+
 @router.patch("/me/preferences", response_model=ProfilePreferencesResponse)
 async def update_preferences(
     data: ProfilePreferencesUpdate, db: DbDep, user_id: CurrentUserDep
