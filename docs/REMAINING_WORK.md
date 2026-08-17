@@ -58,7 +58,7 @@ Backend foundation (API):
 - [x] Session 8 — Match module + daily suggestion algorithm
 
 Mobile → Backend wiring:
-- [ ] Session 9 — Wire onboarding screens 1-7 to Profile API
+- [x] Session 9 — Wire onboarding screens 1-7 to Profile API
 - [ ] Session 10 — Wire onboarding screens 8-14 + photo upload
 - [ ] Session 11 — Wire Home + Search + Profile detail
 
